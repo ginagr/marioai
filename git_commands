@@ -1,0 +1,56 @@
+# marioai
+
+
+## Git Basics
+
+
+### Setup
+
+Clone repo: `git clone https://github.com/ginagr/marioai`
+
+
+### Creating a branch
+Show branches:
+`git branch`
+
+Create branch:
+`git branch <branchname>`
+
+Change to branch:
+`git checkout <branchname>`
+
+Create and change to new branch:
+`git checkout -b <branchname>`
+
+
+### Adding & committing files
+
+Get everything ready to commit:
+`git add .`
+
+Get custom file ready to commit:
+`git add index.html`
+
+Unstage (undo adds):
+`git reset HEAD index.html`
+
+Commit changes:
+`git commit -m "Message"`
+
+Push to branch:
+`git push -u origin <branchname>`
+
+
+### Pulling files
+
+Pull:
+`git pull`
+
+Pull specific branch:
+`git pull origin <branchname>`
+
+
+### Help
+
+Help:
+`git help`
