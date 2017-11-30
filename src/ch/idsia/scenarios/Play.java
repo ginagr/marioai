@@ -10,6 +10,8 @@ import ch.idsia.ai.tasks.Task;
 import ch.idsia.tools.CmdLineOptions;
 import ch.idsia.tools.EvaluationOptions;
 import competition.cig.robinbaumgarten.AStarAgent;
+import competition.cig.sergeykarakovskiy.SergeyKarakovskiy_JumpingAgent;
+import ch.idsia.stateAgent.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,7 +22,7 @@ import competition.cig.robinbaumgarten.AStarAgent;
 public class Play {
 
     public static void main(String[] args) {
-        Agent controller = new ForwardAgent();
+        Agent controller = new StateAgent();
         if (args.length > 0) {
             controller = AgentsPool.load (args[0]);
             AgentsPool.addAgent(controller);
