@@ -2,7 +2,12 @@ package ch.idsia.stateAgent;
 
 import ch.idsia.ai.agents.Agent;
 import ch.idsia.mario.engine.sprites.Mario;
+import ch.idsia.mario.engine.sprites.Sprite;
 import ch.idsia.mario.environments.Environment;
+import ch.idsia.stateAgent.helpers.Helper;
+
+import java.awt.*;
+import java.util.Map;
 
 public class StateAgent implements Agent
 {
@@ -27,6 +32,8 @@ public class StateAgent implements Agent
     {
 //        try {Thread.sleep (39);}
 //        catch (Exception e){}
+        Helper helper = new Helper(observation);
+
         action[Mario.KEY_SPEED] = action[Mario.KEY_JUMP] =  observation.mayMarioJump() || !observation.isMarioOnGround();
         return action;
     }
