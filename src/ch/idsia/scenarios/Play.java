@@ -22,7 +22,7 @@ import ch.idsia.stateAgent.*;
 public class Play {
 
     public static void main(String[] args) {
-        Agent controller = new StateAgent();
+        Agent controller = new StateMachineTestAgent();
         if (args.length > 0) {
             controller = AgentsPool.load (args[0]);
             AgentsPool.addAgent(controller);
@@ -35,7 +35,7 @@ public class Play {
         options.setNumberOfTrials(1);
         options.setMatlabFileName("");
         options.setLevelRandSeed((int) (Math.random () * Integer.MAX_VALUE));
-        options.setLevelDifficulty(3);
+        options.setLevelDifficulty(0);
         task.setOptions(options);
 
         System.out.println ("Score: " + task.evaluate (controller)[0]);

@@ -1,5 +1,7 @@
 package ch.idsia.stateAgent.statemachine;
 
+import ch.idsia.mario.environments.Environment;
+
 public interface ICondition {
-    public boolean test();
+    public boolean test(Environment observation);
 }

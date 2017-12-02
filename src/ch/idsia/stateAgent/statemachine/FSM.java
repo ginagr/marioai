@@ -1,14 +1,18 @@
 package ch.idsia.stateAgent.statemachine;
 
+import ch.idsia.mario.environments.Environment;
+
+import java.util.ArrayList;
+
 public class FSM implements IStateMachine, IStateObject{
 
     private IStateObject[] states;
     private IStateObject resetState;
     private IStateObject currentState;
 
-    private Transition[] transitions;
+    private ArrayList<Transition> transitions;
 
-    public FSM(IStateObject resetState, Transition[] transitions){
+    public FSM(IStateObject resetState, ArrayList<Transition> transitions){
         this.resetState = resetState;
         this.currentState = resetState;
         this.transitions = transitions;
@@ -18,11 +22,11 @@ public class FSM implements IStateMachine, IStateObject{
         this.currentState = resetState;
     }
 
-    public void update(){
+    public void update(Environment observation){
          Transition triggered = null;
 
          for(Transition transition: currentState.getTransitions()){
-             if(transition.isTriggered()){
+             if(transition.isTriggered(observation)){
                  triggered = transition;
                  break;
              }
@@ -37,12 +41,16 @@ public class FSM implements IStateMachine, IStateObject{
     }
 
     @Override
-    public Transition[] getTransitions() {
+    public void addTransition(Transition n){
+        transitions.add(n);
+    }
+
+    public ArrayList<Transition> getTransitions() {
         return this.transitions;
     }
 
-    public boolean[] getAction(){
-        return currentState.getAction();
+    public boolean[] getAction(Environment observation){
+        return currentState.getAction(observation);
     }
 
 
