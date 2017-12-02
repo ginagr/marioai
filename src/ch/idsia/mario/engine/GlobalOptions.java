@@ -10,7 +10,7 @@ import java.util.TimeZone;
 
 public class GlobalOptions {
     public static boolean Labels = false;
-    public static boolean Overlay = false;
+    public static boolean Overlay = true;
     public static boolean MarioAlwaysInCenter = false;
     public static Integer FPS = 24;
     public static int InfiniteFPS = 100;

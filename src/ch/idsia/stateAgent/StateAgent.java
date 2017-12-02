@@ -34,7 +34,28 @@ public class StateAgent implements Agent
 //        catch (Exception e){}
         Helper helper = new Helper(observation);
 
-        action[Mario.KEY_SPEED] = action[Mario.KEY_JUMP] =  observation.mayMarioJump() || !observation.isMarioOnGround();
+//        byte[][] enemies = observation.getLevelSceneObservationZ(3);
+
+//        for (byte[] aLevelScene : enemies) {
+//            for (byte anALevelScene : aLevelScene) {
+//                System.out.print(anALevelScene + "\t");
+//            }
+//            System.out.println("");
+//        }
+        float[] mario = observation.getMarioFloatPos();
+        for(float num: mario) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+        /*
+            Options for actions: Mario.KEY_LEFT
+                                 Mario.KEY_RIGHT
+                                 Mario.KEY_DOWN
+                                 Mario.KEY_JUMP
+                                 Mario.KEY_SPEED
+         */
+        action[Mario.KEY_SPEED] = false;
+//        action[Mario.KEY_JUMP] =  observation.mayMarioJump() || !observation.isMarioOnGround();
         return action;
     }
 

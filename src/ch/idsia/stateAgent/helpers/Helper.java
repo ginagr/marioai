@@ -1,8 +1,5 @@
 package ch.idsia.stateAgent.helpers;
 
-import ch.idsia.mario.engine.LevelScene;
-import ch.idsia.mario.engine.sprites.Mario;
-import ch.idsia.mario.engine.sprites.Sprite;
 import ch.idsia.mario.environments.Environment;
 
 import java.awt.*;
@@ -71,6 +68,9 @@ public class Helper {
         return count;
     }
 
+    /**
+     * @return number of question marks in current scene
+     */
     public int getQuestionMarkBlock() {
         int count = 0;
         byte[][] levelScene = env.getLevelSceneObservation();
@@ -84,8 +84,16 @@ public class Helper {
         return count;
     }
 
+    public boolean getAboveQuestionBlock() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+        boolean above = false;
+        env.getMarioFloatPos();
+
+        return above;
+    }
+
     /**
-     * @return Point array of coordinates that are ? Blocks
+     * @return Point array of coordinates that are question mark blocks in current scene
      */
     public Point[] getQuestionMarkCoordinates() {
         Point[] coor = new Point[getQuestionMarkBlock()];
@@ -137,10 +145,31 @@ public class Helper {
      */
     public boolean getRoadBlock() {
         byte[][] levelScene = env.getLevelSceneObservation();
-        for(int x = 9; x < 13; x++) {
+        for(int x = 12; x < 15; x++) {
             for(int y = 0; y < 22; y++){
-                if(levelScene[x][y] == 20) {
+                if(levelScene[y][x] == 20) {
                     return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean getShouldJump() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+        int top = 0;
+        for(int y = 0; y < 22; y++) {
+            if(levelScene[y][11] == -10) {
+                top = y;
+                y = 22;
+            }
+        }
+        for(int x = 12; x < 15; x++) {
+            for(int y = 0; y < 22; y++){
+                if(levelScene[y][x] == -10) {
+                    if(top > y) {
+                        return true;
+                    }
                 }
             }
         }
