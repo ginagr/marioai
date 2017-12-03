@@ -85,6 +85,19 @@ public class Helper {
         return count;
     }
 
+    public boolean getQuestionMarkBehind() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+
+        for(int x = 0; x < 11; x++) {
+            for (int y = 0; y < 22; y++) {
+                if (levelScene[y][x] == 21) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * @return Point array of coordinates that are question mark blocks in current scene
      */
@@ -191,6 +204,25 @@ public class Helper {
         }
         levelScene = env.getEnemiesObservation();
         for(int x = 11; x < 14; x++) {
+            if(levelScene[mario][x] != 0) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public boolean getEnemyBehindOnLevel() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+        int mario = 0;
+        for(int y = 0; y < 22; y++) {
+            if(levelScene[y][11] == -10) {
+                mario = y-1;
+                y = 22;
+            }
+        }
+        levelScene = env.getEnemiesObservation();
+        for(int x = 10; x > 7; x--) {
             if(levelScene[mario][x] != 0) {
                 return true;
             }
