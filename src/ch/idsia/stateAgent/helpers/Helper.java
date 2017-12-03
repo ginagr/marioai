@@ -170,36 +170,6 @@ public class Helper {
         return false;
     }
 
-    public boolean getShouldJump() {
-        byte[][] levelScene = env.getLevelSceneObservation();
-        int top = 0;
-        for(int y = 0; y < 22; y++) {
-            if(levelScene[y][11] == -10) {
-                top = y;
-                y = 22;
-            }
-        }
-        for(int x = 13; x < 15; x++) {
-            for(int y = 0; y < 22; y++){
-                if(levelScene[y][x] == -10) {
-                    if(top > y) {
-                        return true;
-                    }
-                }
-            }
-        }
-        for(int y = 0; y < 22; y++){
-            if(levelScene[y][12] == -10) {
-                if(top < y) {
-                    if(levelScene[y][14] == -10 && levelScene[y-1][14] == 0) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return !getGapDanger() || getOnTower();
-    }
-
     public boolean getOnTower() {
         byte[][] levelScene = env.getLevelSceneObservation();
         for(int y = 9; y < 14; y++){
@@ -265,6 +235,41 @@ public class Helper {
         return false;
     }
 
+    public boolean getShouldJump() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+        int top = 0;
+        //get mario position
+        for(int y = 0; y < 22; y++) {
+            if(levelScene[y][11] == -10) {
+                top = y;
+                y = 22;
+            }
+        }
+
+        //check 2 tiles ahead if he should jump
+        for(int x = 13; x < 14; x++) {
+            for(int y = 0; y < 22; y++){
+                if(levelScene[y][x] == -10) {
+                    if(top > y) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        //check if small dip in ground
+        for(int y = 0; y < 22; y++){
+            if(levelScene[y][12] == -10) {
+                if(top < y) {
+                    if(levelScene[y][14] == -10 && levelScene[y-1][14] == 0) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return !getGapDanger() || getOnTower();
+    }
+
     public boolean getIsMarioStuck(){
         if(!env.isMarioOnGround()) {
             return false;
@@ -276,10 +281,10 @@ public class Helper {
                 return true;
             }
         }
-        //check if there is a ledge 2 blocks away
+        //check if there is a ledge 1 tile away
         int top = 0;
         for(int y = 0; y < 22; y++) {
-            if(levelScene[y][13] == -10) {
+            if(levelScene[y][12] == -10) {
                 top = y;
                 y = 22;
             }
@@ -302,6 +307,10 @@ public class Helper {
             }
         }
 
+        if(top == 0) {
+            return true;
+        }
+        //check 3 tiles ahead of him
         if(levelScene[top-1][12] == 0 && levelScene[top-1][13] == 0 && levelScene[top-1][14] == 0) {
             return true;
         } else {

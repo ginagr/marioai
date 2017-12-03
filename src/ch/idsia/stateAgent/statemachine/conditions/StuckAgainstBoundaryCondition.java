@@ -9,6 +9,7 @@ public class StuckAgainstBoundaryCondition implements ICondition{
     public boolean test(Environment observation){
 
         Helper helper = new Helper(observation);
-        return helper.getIsMarioStuck();
+        System.out.println("help: " + helper.getIsMarioFarEnough());
+        return helper.getIsMarioStuck() ;
     }
 }
