@@ -9,6 +9,6 @@ public class RunCondition implements ICondition {
     public boolean test(Environment observation){
         Helper helper = new Helper(observation);
 
-        return !helper.getGapDanger();
+        return !helper.getShouldJump() && !helper.getRoadBlock();
     }
 }

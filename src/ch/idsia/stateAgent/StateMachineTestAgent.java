@@ -29,7 +29,7 @@ public class StateMachineTestAgent implements Agent {
     public boolean[] getAction(Environment observation)
     {
         Helper helper = new Helper(observation);
-        System.out.println(helper.getShouldJump()S);
+        System.out.println(helper.getShouldJump());
         action = TSM.getAction(observation);
         TSM.update(observation);
 

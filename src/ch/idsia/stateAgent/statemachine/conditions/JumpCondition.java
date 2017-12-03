@@ -8,7 +8,6 @@ public class JumpCondition implements ICondition {
 
     public boolean test(Environment observation){
         Helper helper = new Helper(observation);
-
-        return helper.getGapDanger() || helper.getRoadBlock();
+        return helper.getShouldJump() || helper.getRoadBlock();
     }
 }
