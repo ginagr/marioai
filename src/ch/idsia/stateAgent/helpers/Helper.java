@@ -1,6 +1,7 @@
 package ch.idsia.stateAgent.helpers;
 
 import ch.idsia.mario.environments.Environment;
+import ch.idsia.stateAgent.astar.AStarSimulator;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class Helper {
 
     private Environment env;
 
-    public Helper(Environment env){
+    public Helper(Environment env, AStarSimulator sim){
         this.env = env;
     }
 
@@ -131,7 +132,7 @@ public class Helper {
     public boolean getGapDanger() {
         byte[][] levelScene = env.getLevelSceneObservation();
         boolean ground = false;
-        for (int x = 12; x < 15; x++) {
+        for (int x = 12; x < 14; x++) {
             for(int y = 12; y < 22; y++) {
                 if (levelScene[y][x] != 0) {
                     ground = true;
@@ -187,7 +188,17 @@ public class Helper {
                 }
             }
         }
-        return !getGapDanger();
+        return !getGapDanger() || getOnTower();
+    }
+
+    public boolean getOnTower() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+        for(int y = 9; y < 14; y++){
+            if(levelScene[y][11] == 20) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean getEnemyAheadOnLevel() {
@@ -206,6 +217,42 @@ public class Helper {
             }
 
         }
+        return false;
+    }
+
+    public boolean getBulletBillLeft() {
+        byte[][] levelScene = env.getEnemiesObservation();
+
+        for(int x = 8; x < 11; x++){
+            for(int y = 0; y < 22; y++){
+                if (levelScene[y][x] == 8) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean getBulletBillRight() {
+        byte[][] levelScene = env.getEnemiesObservation();
+        for(int x = 12; x < 15; x++){
+            for(int y = 0; y < 22; y++){
+                if (levelScene[y][x] == 8) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean getBulletBillAbove() {
+        byte[][] levelScene = env.getEnemiesObservation();
+        for(int y = 0; y < 22; y++){
+            if (levelScene[y][11] == 8) {
+                return true;
+            }
+        }
+
         return false;
     }
 
