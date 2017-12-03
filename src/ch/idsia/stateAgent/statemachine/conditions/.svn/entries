@@ -33,7 +33,21 @@ file
 
 add
 
+GetLostBlockCondition.java
+file
+
+
+
+add
+
 JumpCondition.java
+file
+
+
+
+add
+
+NoLostBlockCondition.java
 file
 
 

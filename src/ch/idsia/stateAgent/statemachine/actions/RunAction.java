@@ -9,7 +9,7 @@ public class RunAction implements IAction {
     public RunAction(){};
 
     public boolean[] getAction(Environment observation){
-        System.out.println("in run action");
+        //System.out.println("in run action");
         boolean[] action = new boolean[Environment.numberOfButtons];
         action[Mario.KEY_RIGHT] = true;
         action[Mario.KEY_JUMP] = false;

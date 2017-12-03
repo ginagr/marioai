@@ -24,13 +24,15 @@ public class TopLevelFSM {
         ICondition runCond = new RunCondition();
         ICondition reverseCond = new StuckAgainstBoundaryCondition();
         ICondition jumpAgainCond = new FreedFromBoundaryCondition();
+        ICondition lostBlockCond = new GetLostBlockCondition();
+        ICondition noLostBlockCond = new NoLostBlockCondition();
         //ICondition adjustForJumpCond = new TryJumpAgainCondition();
 
         State runState = new State(run, new ArrayList<Transition>() );
         State jumpState = new State(jump, new ArrayList<Transition>());
         State moveBackState = new State(moveBack, new ArrayList<Transition>());
-        State runLeftState = new State(run, new ArrayList<Transition>());
-        State jumpLeftState = new State(run, new ArrayList<Transition>());
+        State runLeftState = new State(runLeft, new ArrayList<Transition>());
+        State jumpLeftState = new State(jumpLeft, new ArrayList<Transition>());
         //State adjustForJumpState = new State(adjustForJump, new ArrayList<Transition>());
 
         Transition RunToJump = new Transition(jumpState, jumpCond);
@@ -39,12 +41,12 @@ public class TopLevelFSM {
         Transition MoveBackToJump = new Transition(jumpState, jumpAgainCond);
         Transition RunLeftToJumpLeft = new Transition(jumpLeftState, jumpCond);
         Transition JumpLeftToRunLeft = new Transition(runLeftState, runCond);
-        //Transition RunToRunLeft
-        //Transition RunLeftToRun
+        Transition RunToRunLeft = new Transition(runLeftState, lostBlockCond);
+        Transition RunLeftToRun = new Transition(runState, noLostBlockCond);
 
         //Transition AdjustForJumpToJump = new Transition(jumpState, adjustForJumpCond);
 
-        //runState.addTransition(RunToRunLeft);
+        runState.addTransition(RunToRunLeft);
         runState.addTransition(RunToJump);
 
         jumpState.addTransition(JumpToMoveBack);
@@ -52,7 +54,7 @@ public class TopLevelFSM {
 
         moveBackState.addTransition(MoveBackToJump);
 
-        //runLeftState.addTransition(RunLeftToRun);
+        runLeftState.addTransition(RunLeftToRun);
         runLeftState.addTransition(RunLeftToJumpLeft);
 
         jumpLeftState.addTransition(JumpLeftToRunLeft);
