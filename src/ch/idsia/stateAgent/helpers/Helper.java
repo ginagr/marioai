@@ -84,14 +84,6 @@ public class Helper {
         return count;
     }
 
-    public boolean getAboveQuestionBlock() {
-        byte[][] levelScene = env.getLevelSceneObservation();
-        boolean above = false;
-        env.getMarioFloatPos();
-
-        return above;
-    }
-
     /**
      * @return Point array of coordinates that are question mark blocks in current scene
      */
@@ -111,6 +103,18 @@ public class Helper {
         return coor;
     }
 
+    public boolean getQuestionMarkAbove() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+
+        for(int y = 0; y < 22; y++){
+            if((levelScene[y][12] == 21) || (levelScene[y][12] == 34)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 //    public void getMarioSize() {
 //        String s = "Fire";
 //        if (!sim.levelScene.mario.fire)
@@ -126,18 +130,16 @@ public class Helper {
      */
     public boolean getGapDanger() {
         byte[][] levelScene = env.getLevelSceneObservation();
-        for (int x = 9; x < 13; x++) {
-            boolean f = true;
+        boolean ground = false;
+        for (int x = 12; x < 15; x++) {
             for(int y = 12; y < 22; y++) {
-                if  (levelScene[y][x] != 0) {
-                    f = false;
+                if (levelScene[y][x] != 0) {
+                    ground = true;
                 }
             }
-            if (f && levelScene[12][11] != 0) {
-                return true;
-            }
+
         }
-        return false;
+        return ground;
     }
 
     /**
@@ -145,9 +147,21 @@ public class Helper {
      */
     public boolean getRoadBlock() {
         byte[][] levelScene = env.getLevelSceneObservation();
-        for(int x = 12; x < 15; x++) {
+        for(int x = 11; x < 14; x++) {
             for(int y = 0; y < 22; y++){
                 if(levelScene[y][x] == 20) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean getCannonAhead() {
+        byte[][] levelScene = env.getEnemiesObservation();
+        for(int x = 12; x < 14; x++) {
+            for(int y = 0; y < 22; y++){
+                if(levelScene[y][x] == 12) {
                     return true;
                 }
             }
@@ -164,7 +178,7 @@ public class Helper {
                 y = 22;
             }
         }
-        for(int x = 12; x < 15; x++) {
+        for(int x = 12; x < 14; x++) {
             for(int y = 0; y < 22; y++){
                 if(levelScene[y][x] == -10) {
                     if(top > y) {
@@ -172,6 +186,25 @@ public class Helper {
                     }
                 }
             }
+        }
+        return !getGapDanger();
+    }
+
+    public boolean getEnemyAheadOnLevel() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+        int mario = 0;
+        for(int y = 0; y < 22; y++) {
+            if(levelScene[y][11] == -10) {
+                mario = y-1;
+                y = 22;
+            }
+        }
+        levelScene = env.getEnemiesObservation();
+        for(int x = 11; x < 14; x++) {
+            if(levelScene[mario][x] != 0) {
+                return true;
+            }
+
         }
         return false;
     }
