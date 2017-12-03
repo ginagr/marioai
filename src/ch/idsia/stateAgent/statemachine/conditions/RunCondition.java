@@ -11,12 +11,12 @@ public class RunCondition implements ICondition {
 
 
         byte[][] levelScene = observation.getLevelSceneObservation();
-        for(byte[] byterow : levelScene){
-            for(byte bt : byterow){
-                System.out.print(bt);
-            }
-            System.out.println();
-        }
+//        for(byte[] byterow : levelScene){
+//            for(byte bt : byterow){
+//                System.out.print(bt);
+//            }
+//            System.out.println();
+//        }
 
         //System.out.println("in run condition: " + (!helper.getShouldJump() && !helper.getRoadBlock()));
         return !helper.getShouldJump() && !helper.getRoadBlock();

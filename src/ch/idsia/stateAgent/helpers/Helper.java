@@ -179,10 +179,19 @@ public class Helper {
                 y = 22;
             }
         }
-        for(int x = 13; x < 14; x++) {
+        for(int x = 12; x < 14; x++) {
             for(int y = 0; y < 22; y++){
                 if(levelScene[y][x] == -10) {
                     if(top > y) {
+                        return true;
+                    }
+                }
+            }
+        }
+        for(int y = 0; y < 22; y++){
+            if(levelScene[y][12] == -10) {
+                if(top < y) {
+                    if(levelScene[y][14] == -10 && levelScene[y-1][14] == 0) {
                         return true;
                     }
                 }
@@ -257,6 +266,9 @@ public class Helper {
     }
 
     public boolean getIsMarioStuck(){
+        if(!env.isMarioOnGround()) {
+            return false;
+        }
         byte[][] levelScene = env.getLevelSceneObservation();
         for(int y = 9; y < 14; y++){
             if(levelScene[y][12] == 20) {

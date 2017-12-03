@@ -10,6 +10,6 @@ public class StuckAgainstBoundaryCondition implements ICondition{
 
         Helper helper = new Helper(observation);
 
-        return helper.getIsStuck();
+        return helper.getIsMarioStuck();
     }
 }
