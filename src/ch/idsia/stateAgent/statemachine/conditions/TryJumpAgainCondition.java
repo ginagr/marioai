@@ -10,6 +10,6 @@ public class TryJumpAgainCondition implements ICondition {
 
         Helper helper = new Helper(observation);
 
-        return !helper.getIsMarioStuck(); // the new helper goes here
+        return helper.getIsMarioFarEnough();
     }
 }
