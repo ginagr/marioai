@@ -160,7 +160,7 @@ public class Helper {
      * @return true if road block ahead, false if not
      */
     public boolean getRoadBlock() {
-        byte[][] levelScene = env.getLevelSceneObservation();
+        byte[][] levelScene = env.getCompleteObservation();
         for(int x = 11; x < 14; x++) {
             for(int y = 0; y < 22; y++){
                 if(levelScene[y][x] == 20) {
@@ -196,11 +196,15 @@ public class Helper {
     public boolean getEnemyAheadOnLevel() {
         byte[][] levelScene = env.getLevelSceneObservation();
         int mario = 0;
+
         for(int y = 0; y < 22; y++) {
             if(levelScene[y][11] == -10) {
                 mario = y-1;
                 y = 22;
             }
+        }
+        if(mario < 1) {
+            return false;
         }
         levelScene = env.getEnemiesObservation();
         for(int x = 11; x < 14; x++) {
@@ -227,6 +231,16 @@ public class Helper {
                 return true;
             }
 
+        }
+        return false;
+    }
+
+    public boolean getIsMarioBetween() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+        for(int y = 0; y < 22; y++){
+            if(levelScene[y][12] == 20 || levelScene[y][13] == 20) {
+                return true;
+            }
         }
         return false;
     }
@@ -286,6 +300,13 @@ public class Helper {
                         return true;
                     }
                 }
+            }
+        }
+
+        //check if there is a tower
+        for(int y = 0; y < 22; y++){
+            if(levelScene[y][12] == 20 || levelScene[y][13] == 20) {
+                return true;
             }
         }
 

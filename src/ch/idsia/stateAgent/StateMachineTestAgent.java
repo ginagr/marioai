@@ -105,7 +105,7 @@ public class StateMachineTestAgent implements Agent {
         }
         sim.timeBudget += 39 - (int)(System.currentTimeMillis() - startTime);
 
-
+//
 //        byte[][] enemies1 = observation.getCompleteObservation();
 //
 //        for (byte[] aLevelScene : enemies1) {
