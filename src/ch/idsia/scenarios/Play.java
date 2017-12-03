@@ -23,6 +23,7 @@ public class Play {
 
     public static void main(String[] args) {
         Agent controller = new StateMachineTestAgent();
+        //Agent controller = new HumanKeyboardAgent();
         if (args.length > 0) {
             controller = AgentsPool.load (args[0]);
             AgentsPool.addAgent(controller);

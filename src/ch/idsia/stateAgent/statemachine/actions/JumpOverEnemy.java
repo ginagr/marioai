@@ -1,4 +1,4 @@
-package ch.idsia.stateAgent.statemachine.actions;
+/*package ch.idsia.stateAgent.statemachine.actions;
 
 import ch.idsia.mario.environments.Environment;
 import ch.idsia.stateAgent.statemachine.IAction;
@@ -20,4 +20,4 @@ public class JumpOverEnemy implements IAction {
 
             return action;
     }
-}
+}*/
