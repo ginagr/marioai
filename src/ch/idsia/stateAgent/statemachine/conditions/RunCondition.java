@@ -10,6 +10,6 @@ public class RunCondition implements ICondition {
         Helper helper = new Helper(observation);
 
 //System.out.println("in run condition: " + (!helper.getShouldJump() && !helper.getRoadBlock()));
-        return !helper.getShouldJump() && !helper.getRoadBlock();
+        return !helper.getShouldJump() && !helper.getRoadBlock() && !helper.getQuestionMarkAbove() && !helper.getEnemyAheadOnLevel();
     }
 }

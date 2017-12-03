@@ -307,6 +307,8 @@ public class Helper {
             }
         }
 
+        System.out.println(top);
+
         if(top == 0) {
             return true;
         }
