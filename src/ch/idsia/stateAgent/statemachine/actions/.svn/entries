@@ -40,6 +40,13 @@ file
 
 add
 
+JumpLeftAction.java
+file
+
+
+
+add
+
 JumpOverEnemy.java
 file
 
@@ -48,6 +55,13 @@ file
 add
 
 MoveBackAction.java
+file
+
+
+
+add
+
+RunLeftAction.java
 file
 
 

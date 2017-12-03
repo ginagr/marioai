@@ -2,10 +2,7 @@
 package ch.idsia.stateAgent.statemachine;
 
 import ch.idsia.mario.environments.Environment;
-import ch.idsia.stateAgent.statemachine.actions.AdjustForJumpAction;
-import ch.idsia.stateAgent.statemachine.actions.JumpAction;
-import ch.idsia.stateAgent.statemachine.actions.MoveBackAction;
-import ch.idsia.stateAgent.statemachine.actions.RunAction;
+import ch.idsia.stateAgent.statemachine.actions.*;
 import ch.idsia.stateAgent.statemachine.conditions.*;
 
 import java.util.ArrayList;
@@ -19,6 +16,8 @@ public class TopLevelFSM {
         IAction run = new RunAction();
         IAction jump = new JumpAction();
         IAction moveBack = new MoveBackAction();
+        IAction runLeft = new RunLeftAction();
+        IAction jumpLeft = new JumpLeftAction();
         //IAction adjustForJump = new AdjustForJumpAction();
 
         ICondition jumpCond = new JumpCondition();
@@ -30,20 +29,34 @@ public class TopLevelFSM {
         State runState = new State(run, new ArrayList<Transition>() );
         State jumpState = new State(jump, new ArrayList<Transition>());
         State moveBackState = new State(moveBack, new ArrayList<Transition>());
+        State runLeftState = new State(run, new ArrayList<Transition>());
+        State jumpLeftState = new State(run, new ArrayList<Transition>());
         //State adjustForJumpState = new State(adjustForJump, new ArrayList<Transition>());
 
         Transition RunToJump = new Transition(jumpState, jumpCond);
         Transition JumpToRun = new Transition(runState, runCond);
         Transition JumpToMoveBack = new Transition(moveBackState, reverseCond);
         Transition MoveBackToJump = new Transition(jumpState, jumpAgainCond);
+        Transition RunLeftToJumpLeft = new Transition(jumpLeftState, jumpCond);
+        Transition JumpLeftToRunLeft = new Transition(runLeftState, runCond);
+        //Transition RunToRunLeft
+        //Transition RunLeftToRun
+
         //Transition AdjustForJumpToJump = new Transition(jumpState, adjustForJumpCond);
 
+        //runState.addTransition(RunToRunLeft);
         runState.addTransition(RunToJump);
 
         jumpState.addTransition(JumpToMoveBack);
         jumpState.addTransition(JumpToRun);
 
         moveBackState.addTransition(MoveBackToJump);
+
+        //runLeftState.addTransition(RunLeftToRun);
+        runLeftState.addTransition(RunLeftToJumpLeft);
+
+        jumpLeftState.addTransition(JumpLeftToRunLeft);
+
 
         //adjustForJumpState.addTransition(AdjustForJumpToJump);
 
