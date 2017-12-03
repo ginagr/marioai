@@ -360,7 +360,7 @@ public class Helper {
             }
         }
 
-        System.out.println(top);
+//        System.out.println(top);
 
         if(top == 0) {
             return true;
@@ -372,6 +372,17 @@ public class Helper {
             return false;
         }
 
+    }
+
+    public boolean getIsMarioSandwich() {
+        byte[][] levelScene = env.getCompleteObservation();
+        for(int y = 0; y < 22; y++) {
+            if ((levelScene[y][10] == 20 || levelScene[y][9] == 20 || levelScene[y][8] == 20) &&
+                    (levelScene[y][12] == 20 || levelScene[y][13] == 20 || levelScene[y][14] == 20)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
