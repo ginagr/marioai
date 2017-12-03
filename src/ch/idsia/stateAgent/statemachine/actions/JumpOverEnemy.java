@@ -1,7 +1,7 @@
 package ch.idsia.stateAgent.statemachine.actions;
 
 import ch.idsia.mario.environments.Environment;
-import ch.idsia.stateAgent.statemachine.IAction;package ch.idsia.stateAgent.statemachine.actions;
+import ch.idsia.stateAgent.statemachine.IAction;
 
 import ch.idsia.mario.environments.Environment;
 import ch.idsia.stateAgent.statemachine.IAction;
@@ -13,8 +13,8 @@ public class JumpOverEnemy implements IAction {
 
         //e is the closest enemy observed
 
-        if(e.ypos > marios height){}
-        else{}
+//        if(e.ypos > marios height){}
+//        else{}
 
 
 
