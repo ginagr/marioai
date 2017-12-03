@@ -179,7 +179,7 @@ public class Helper {
                 y = 22;
             }
         }
-        for(int x = 12; x < 14; x++) {
+        for(int x = 13; x < 15; x++) {
             for(int y = 0; y < 22; y++){
                 if(levelScene[y][x] == -10) {
                     if(top > y) {
@@ -271,22 +271,20 @@ public class Helper {
         }
         byte[][] levelScene = env.getLevelSceneObservation();
         for(int y = 9; y < 14; y++){
-            if(levelScene[y][12] == 20) {
+            if(levelScene[y][12] == 20 || levelScene[y][13] == 20) {
                 return true;
             }
         }
         int top = 0;
         for(int y = 0; y < 22; y++) {
-            if(levelScene[y][12] == -10) {
+            if(levelScene[y][13] == -10) {
                 top = y;
                 y = 22;
             }
         }
         for(int y = 0; y < 22; y++) {
             if(levelScene[y][11] == -10) {
-                if(y > top) {
-                    return true;
-                }
+                return y > top;
             }
         }
         return false;
