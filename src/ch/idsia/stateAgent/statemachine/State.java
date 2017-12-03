@@ -22,4 +22,9 @@ public class State implements IStateObject{
     public void addTransition(Transition n){
         transitions.add(n);
     }
+
+    @Override
+    public void printMyAction() {
+        System.out.println(this.action.getClass());
+    }
 }
