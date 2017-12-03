@@ -13,7 +13,9 @@ public class Helper {
 
     private Environment env;
 
-    public Helper(Environment env/*, AStarSimulator sim*/){ this.env = env; }
+    public Helper(Environment env){
+        this.env = env;
+    }
 
     /**
      * @return number of enemies in current scene
@@ -177,7 +179,7 @@ public class Helper {
                 y = 22;
             }
         }
-        for(int x = 12; x < 14; x++) {
+        for(int x = 13; x < 14; x++) {
             for(int y = 0; y < 22; y++){
                 if(levelScene[y][x] == -10) {
                     if(top > y) {
@@ -251,6 +253,30 @@ public class Helper {
             }
         }
 
+        return false;
+    }
+
+    public boolean getIsMarioStuck(){
+        byte[][] levelScene = env.getLevelSceneObservation();
+        for(int y = 9; y < 14; y++){
+            if(levelScene[y][12] == 20) {
+                return true;
+            }
+        }
+        int top = 0;
+        for(int y = 0; y < 22; y++) {
+            if(levelScene[y][12] == -10) {
+                top = y;
+                y = 22;
+            }
+        }
+        for(int y = 0; y < 22; y++) {
+            if(levelScene[y][11] == -10) {
+                if(y > top) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

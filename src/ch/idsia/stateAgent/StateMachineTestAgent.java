@@ -36,7 +36,7 @@ public class StateMachineTestAgent implements Agent {
     public boolean[] getAction(Environment observation)
     {
         Helper helper = new Helper(observation);
-        System.out.println(helper.getShouldJump());
+//        System.out.println("stuck: " + helper.getIsMarioStuck());
 
         long startTime = System.currentTimeMillis();
         tickCounter++;
