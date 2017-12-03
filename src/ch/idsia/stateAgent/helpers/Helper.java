@@ -302,7 +302,7 @@ public class Helper {
             }
         }
 
-        if(levelScene[top+1][12] == 0 && levelScene[top+1][13] == 0 && levelScene[top+1][14] == 0) {
+        if(levelScene[top-1][12] == 0 && levelScene[top-1][13] == 0 && levelScene[top-1][14] == 0) {
             return true;
         } else {
             return false;
