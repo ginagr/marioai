@@ -4,16 +4,15 @@ import ch.idsia.mario.engine.sprites.Mario;
 import ch.idsia.mario.environments.Environment;
 import ch.idsia.stateAgent.statemachine.IAction;
 
-public class JumpAction implements IAction {
+public class MoveBackAction implements IAction {
 
-    public JumpAction(){};
-
-    public boolean[] getAction(Environment observation){
+    @Override
+    public boolean[] getAction(Environment observation) {
         boolean[] action = new boolean[Environment.numberOfButtons];
 
-        action[Mario.KEY_JUMP] = true;
-        //action[Mario.KEY_SPEED] = true;
-        //action[Mario.KEY_RIGHT] = true;
+        action[Mario.KEY_RIGHT] = false;
+        action[Mario.KEY_LEFT] = true;
+
         return action;
     }
 }

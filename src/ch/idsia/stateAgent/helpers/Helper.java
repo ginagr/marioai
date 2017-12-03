@@ -13,9 +13,7 @@ public class Helper {
 
     private Environment env;
 
-    public Helper(Environment env, AStarSimulator sim){
-        this.env = env;
-    }
+    public Helper(Environment env/*, AStarSimulator sim*/){ this.env = env; }
 
     /**
      * @return number of enemies in current scene
