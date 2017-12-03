@@ -29,7 +29,7 @@ public class TopLevelFSM {
 
         State runState = new State(run, new ArrayList<Transition>() );
         State jumpState = new State(jump, new ArrayList<Transition>());
-        State moveBackState = new State(jump, new ArrayList<Transition>());
+        State moveBackState = new State(moveBack, new ArrayList<Transition>());
 
         Transition RunToJump = new Transition(jumpState, jumpCond);
         Transition JumpToRun = new Transition(runState, runCond);
@@ -37,8 +37,10 @@ public class TopLevelFSM {
         Transition MoveBackToJump = new Transition(jumpState, jumpAgainCond);
 
         runState.addTransition(RunToJump);
-        jumpState.addTransition(JumpToRun);
+
         jumpState.addTransition(JumpToMoveBack);
+        jumpState.addTransition(JumpToRun);
+
         moveBackState.addTransition(MoveBackToJump);
 
         this.sm = new FSM(runState, null);

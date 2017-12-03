@@ -8,8 +8,8 @@ public class JumpCondition implements ICondition {
 
     public boolean test(Environment observation){
         Helper helper = new Helper(observation);
-        System.out.println("in jump condition: " + (helper.getShouldJump() || helper.getRoadBlock() ||
-                helper.getQuestionMarkAbove() || helper.getEnemyAheadOnLevel()));
+        //System.out.println("in jump condition: " + (helper.getShouldJump() || helper.getRoadBlock() ||
+        //        helper.getQuestionMarkAbove() || helper.getEnemyAheadOnLevel()));
         return helper.getShouldJump() || helper.getRoadBlock() || helper.getQuestionMarkAbove() || helper.getEnemyAheadOnLevel();
     }
 }

@@ -8,4 +8,6 @@ public interface IStateObject {
     public void addTransition(Transition n);
     public ArrayList<Transition> getTransitions();
     public boolean[] getAction(Environment observation);
+
+    public void printMyAction();
 }

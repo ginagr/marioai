@@ -14,7 +14,8 @@ public class JumpAction implements IAction {
 
         action[Mario.KEY_JUMP] = true;
         //action[Mario.KEY_SPEED] = true;
-        //action[Mario.KEY_RIGHT] = true;
+        action[Mario.KEY_LEFT] = false;
+        action[Mario.KEY_RIGHT] = true;
         return action;
     }
 }

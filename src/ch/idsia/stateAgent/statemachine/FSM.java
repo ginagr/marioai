@@ -35,6 +35,8 @@ public class FSM implements IStateMachine, IStateObject{
          if(triggered != null){
              IStateObject targetState = triggered.getTargetState();
 
+             targetState.printMyAction();
+
              this.currentState = targetState;
          }
 
@@ -60,6 +62,10 @@ public class FSM implements IStateMachine, IStateObject{
 
     public IStateObject getCurrentState(){
         return this.currentState;
+    }
+
+    public void printMyAction() {
+        System.out.println("no");
     }
 
 }
