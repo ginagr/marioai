@@ -104,9 +104,11 @@ public class StateMachineTestAgent implements Agent {
             System.out.println("Returning action: " + sim.printAction(action));
         }
         sim.timeBudget += 39 - (int)(System.currentTimeMillis() - startTime);
-//        byte[][] enemies = observation.getLevelSceneObservationZ(0);
+
+
+//        byte[][] enemies1 = observation.getCompleteObservation();
 //
-//        for (byte[] aLevelScene : enemies) {
+//        for (byte[] aLevelScene : enemies1) {
 //            for (byte anALevelScene : aLevelScene) {
 //                System.out.print(anALevelScene + "\t");
 //            }
