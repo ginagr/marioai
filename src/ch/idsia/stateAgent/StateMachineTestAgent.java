@@ -33,7 +33,11 @@ public class StateMachineTestAgent implements Agent {
         sim = new AStarSimulator();
     }
 
-    public boolean[] getAction(Environment observation) {
+    public boolean[] getAction(Environment observation)
+    {
+        Helper helper = new Helper(observation);
+        System.out.println(helper.getShouldJump());
+
         long startTime = System.currentTimeMillis();
         tickCounter++;
         String s = "Fire";
@@ -109,9 +113,6 @@ public class StateMachineTestAgent implements Agent {
 //            System.out.println("");
 //        }
 
-//        System.out.println();
-//        Helper helper = new Helper(observation);
-//        System.out.println(helper.getShouldJump());
         action = TSM.getAction(observation);
         TSM.update(observation);
 
