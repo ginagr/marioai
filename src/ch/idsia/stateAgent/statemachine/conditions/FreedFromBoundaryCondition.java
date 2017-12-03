@@ -10,6 +10,6 @@ public class FreedFromBoundaryCondition implements ICondition {
 
         Helper helper = new Helper(observation);
 
-        return !helper.getIsMarioStuck();
+        return !helper.getIsMarioStuck() /*|| helper.getShouldJump()*/;
     }
 }
