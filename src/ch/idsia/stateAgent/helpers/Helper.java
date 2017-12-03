@@ -269,12 +269,14 @@ public class Helper {
         if(!env.isMarioOnGround()) {
             return false;
         }
+        //check if there is a cannon
         byte[][] levelScene = env.getLevelSceneObservation();
         for(int y = 9; y < 14; y++){
             if(levelScene[y][12] == 20 || levelScene[y][13] == 20) {
                 return true;
             }
         }
+        //check if there is a ledge 2 blocks away
         int top = 0;
         for(int y = 0; y < 22; y++) {
             if(levelScene[y][13] == -10) {
@@ -288,6 +290,24 @@ public class Helper {
             }
         }
         return false;
+    }
+
+    public boolean getIsMarioFarEnough() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+        int top = 0;
+        for(int y = 0; y < 22; y++) {
+            if(levelScene[y][11] == -10) {
+                top = y;
+                y = 22;
+            }
+        }
+
+        if(levelScene[top+1][12] == 0 && levelScene[top+1][13] == 0 && levelScene[top+1][14] == 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }
