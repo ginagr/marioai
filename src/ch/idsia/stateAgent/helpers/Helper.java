@@ -98,34 +98,24 @@ public class Helper {
         return false;
     }
 
-    /**
-     * @return Point array of coordinates that are question mark blocks in current scene
-     */
-    public Point[] getQuestionMarkCoordinates() {
-        Point[] coor = new Point[getQuestionMarkBlock()];
-        int count = 0;
-        byte[][] levelScene = env.getLevelSceneObservation();
-        for (int i = 0; i < levelScene.length; i++) {
-            for (int j = 0; j < levelScene[i].length; j++) {
-                if(levelScene[i][j] == 21) {
-                    Point temp = new Point(i, j);
-                    coor[count] = temp;
-                    count++;
-                }
-            }
-        }
-        return coor;
-    }
-
     public boolean getQuestionMarkAbove() {
         byte[][] levelScene = env.getLevelSceneObservation();
-
-        for(int y = 0; y < 22; y++){
-            if((levelScene[y][12] == 21) || (levelScene[y][12] == 34)){
+        for(int y = 0; y < 11; y++){
+            if((levelScene[y][11] == 21)){
                 return true;
             }
         }
 
+        return false;
+    }
+
+    public boolean getQuestionMarkBelow() {
+        byte[][] levelScene = env.getLevelSceneObservation();
+        for(int y = 11; y < 22; y++){
+            if(levelScene[y][11] == 21) {
+                return true;
+            }
+        }
         return false;
     }
 

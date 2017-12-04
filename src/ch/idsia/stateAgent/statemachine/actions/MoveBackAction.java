@@ -10,7 +10,7 @@ public class MoveBackAction implements IAction {
     public boolean[] getAction(Environment observation) {
         boolean[] action = new boolean[Environment.numberOfButtons];
 
-        System.out.println("in move back action");
+//        System.out.println("in move back action");
 
         action[Mario.KEY_RIGHT] = false;
         action[Mario.KEY_LEFT] = true;

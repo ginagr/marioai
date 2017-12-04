@@ -25,6 +25,6 @@ public class State implements IStateObject{
 
     @Override
     public void printMyAction() {
-        System.out.println(this.action.getClass());
+//        System.out.println(this.action.getClass());
     }
 }

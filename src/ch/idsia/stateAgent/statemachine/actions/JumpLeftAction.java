@@ -13,7 +13,7 @@ public class JumpLeftAction implements IAction {
         boolean[] action = new boolean[Environment.numberOfButtons];
 
         action[Mario.KEY_JUMP] = true;
-        action[Mario.KEY_LEFT] = false;
+        //action[Mario.KEY_LEFT] = true;
         action[Mario.KEY_RIGHT] = false;
         return action;
     }
