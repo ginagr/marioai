@@ -7,12 +7,14 @@ import ch.idsia.stateAgent.statemachine.conditions.*;
 
 import java.util.ArrayList;
 
+//the object the agent uses to control the system
 public class TopLevelFSM {
 
     FSM sm;
 
     public TopLevelFSM(){
 
+        //declare all the new actions for the machine
         IAction run = new RunAction();
         IAction jump = new JumpAction();
         IAction moveBack = new MoveBackAction();
@@ -21,6 +23,7 @@ public class TopLevelFSM {
         IAction wait = new WaitAction();
         //IAction adjustForJump = new AdjustForJumpAction();
 
+        //declare all the new conditions for the machine
         ICondition jumpCond = new JumpCondition();
         ICondition runCond = new RunCondition();
         ICondition reverseCond = new StuckAgainstBoundaryCondition();
@@ -31,6 +34,7 @@ public class TopLevelFSM {
         ICondition noPirhannaCond = new NoPirhannaInPipeCondition();
         //ICondition adjustForJumpCond = new TryJumpAgainCondition();
 
+        //build the states for the state machine; the most central ones are the runState and jumpState
         State runState = new State(run, new ArrayList<Transition>() );
         State jumpState = new State(jump, new ArrayList<Transition>());
         State moveBackState = new State(moveBack, new ArrayList<Transition>());
@@ -39,6 +43,7 @@ public class TopLevelFSM {
         State waitState = new State(wait, new ArrayList<Transition>());
         //State adjustForJumpState = new State(adjustForJump, new ArrayList<Transition>());
 
+        //transitions between the different states are declared; each transition holds a condition and target state
         Transition RunToJump = new Transition(jumpState, jumpCond);
         Transition JumpToRun = new Transition(runState, runCond);
         Transition JumpToMoveBack = new Transition(moveBackState, reverseCond);
@@ -50,7 +55,8 @@ public class TopLevelFSM {
         Transition RunToWait = new Transition(waitState, pirhannaCond);
         Transition WaitToRun = new Transition(runState, noPirhannaCond);
 
-        //Transition AdjustForJumpToJump = new Transition(jumpState, adjustForJumpCond);
+        //transitions are added to their respective source states; this has to be done this way because
+        //states have transitions and transitions have states
 
         //runState.addTransition(RunToRunLeft);
         runState.addTransition(RunToWait);
@@ -68,11 +74,11 @@ public class TopLevelFSM {
 
         waitState.addTransition(WaitToRun);
 
-
-        //adjustForJumpState.addTransition(AdjustForJumpToJump);
-
+        //build the FSM from these initializations
         this.sm = new FSM(runState, null);
     }
+
+    //pass off all responsibilities to the FSM element
 
     public void reset(){ sm.reset(); }
 
@@ -82,6 +88,4 @@ public class TopLevelFSM {
         return sm.getAction(observation);
     }
 
-
-    //place functions to be used only by the top level here;
 }

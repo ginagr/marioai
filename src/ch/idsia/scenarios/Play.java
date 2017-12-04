@@ -22,6 +22,7 @@ import ch.idsia.stateAgent.*;
 public class Play {
 
     public static void main(String[] args) {
+        //the name of our agent, since it uses the state machine
         Agent controller = new StateMachineTestAgent();
         //Agent controller = new HumanKeyboardAgent();
         if (args.length > 0) {

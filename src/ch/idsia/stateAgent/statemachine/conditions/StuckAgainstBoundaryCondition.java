@@ -4,12 +4,13 @@ import ch.idsia.mario.environments.Environment;
 import ch.idsia.stateAgent.helpers.Helper;
 import ch.idsia.stateAgent.statemachine.ICondition;
 
+//check if mario has gotten too close to the ledge to jump
 public class StuckAgainstBoundaryCondition implements ICondition{
 
     public boolean test(Environment observation){
-
         Helper helper = new Helper(observation);
-//        System.out.println("StuckAgainstBoundaryCondition: " + helper.getIsMarioStuck());//helper.getIsMarioFarEnough());
+
+        //check if mario is stuck on a ledge
         return helper.getIsMarioStuck();
 
     }
