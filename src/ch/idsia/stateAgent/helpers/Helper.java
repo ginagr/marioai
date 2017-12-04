@@ -4,6 +4,9 @@ import ch.idsia.mario.environments.Environment;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Helper class that checks the environment and returns booleans for FSM
+ */
 public class Helper {
 
     private Environment env;
@@ -42,10 +45,6 @@ public class Helper {
             }
         }
         return sprites;
-//        Map<Byte, Integer> map = helper.getTypeOfEnemies();
-//        for(Map.Entry m:map.entrySet()){
-//            System.out.println(m.getKey()+" "+m.getValue());
-//        }
     }
 
     /**
@@ -80,6 +79,9 @@ public class Helper {
         return count;
     }
 
+    /**
+     * @return if there are any ? blocks behind Mario in current scene
+     */
     public boolean getQuestionMarkBehind() {
         byte[][] levelScene = env.getLevelSceneObservation();
 
@@ -93,10 +95,16 @@ public class Helper {
         return false;
     }
 
+    /**
+     * @return if there is a ? block right above Mario in jumping distance
+     */
     public boolean getQuestionMarkAbove() {
         byte[][] levelScene = env.getLevelSceneObservation();
         for(int y = 0; y < 11; y++){
-            if((levelScene[y][12] == 21)){
+            if(levelScene[y][11] == 21 || (levelScene[y][12] == 21)){
+                return true;
+            }
+            if(levelScene[y][12] == 16 && (levelScene[y][13] == 16)) {
                 return true;
             }
         }
@@ -104,6 +112,9 @@ public class Helper {
         return false;
     }
 
+    /**
+     * @return if there is a ? block below Mario (he is standing on it)
+     */
     public boolean getQuestionMarkBelow() {
         byte[][] levelScene = env.getLevelSceneObservation();
         for(int y = 11; y < 22; y++){
@@ -113,16 +124,6 @@ public class Helper {
         }
         return false;
     }
-
-//    public void getMarioSize() {
-//        String s = "Fire";
-//        if (!sim.levelScene.mario.fire)
-//            s = "Large";
-//        if (!sim.levelScene.mario.large)
-//            s = "Small";
-//        if (sim.levelScene.verbose > 0) System.out.println("Next action! Tick " + tickCounter + " Simulated Mariosize: " + s);
-//
-//    }
 
     /**
      * @return true if close to a gap, false if not
@@ -156,6 +157,9 @@ public class Helper {
         return false;
     }
 
+    /**
+     * @return if Mario is in front of a pipe
+     */
     public boolean getCannonAhead() {
         byte[][] levelScene = env.getCompleteObservation();
         for(int x = 12; x < 13; x++) {
@@ -168,7 +172,11 @@ public class Helper {
         return false;
     }
 
-    public boolean getOnTower() {
+    /**
+     *
+     * @return if Mario is standing on a pipe
+     */
+    private boolean getOnTower() {
         byte[][] levelScene = env.getLevelSceneObservation();
         for(int y = 9; y < 14; y++){
             if(levelScene[y][11] == 20) {
@@ -178,6 +186,9 @@ public class Helper {
         return false;
     }
 
+    /**
+     * @return if Mario is in jumping distance to an enemy
+     */
     public boolean getEnemyAheadOnLevel() {
         byte[][] levelScene = env.getLevelSceneObservation();
         int mario = 0;
@@ -201,6 +212,9 @@ public class Helper {
         return false;
     }
 
+    /**
+     * @return if there is an enemy close to Mario behind him
+     */
     public boolean getEnemyBehindOnLevel() {
         byte[][] levelScene = env.getLevelSceneObservation();
         int mario = 0;
@@ -220,16 +234,9 @@ public class Helper {
         return false;
     }
 
-    public boolean getIsMarioBetween() {
-        byte[][] levelScene = env.getLevelSceneObservation();
-        for(int y = 0; y < 22; y++){
-            if(levelScene[y][12] == 20 || levelScene[y][13] == 20) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    /**
+     * @return if there is a Bullet bill to the left of Mario
+     */
     public boolean getBulletBillLeft() {
         byte[][] levelScene = env.getEnemiesObservation();
 
@@ -243,6 +250,9 @@ public class Helper {
         return false;
     }
 
+    /**
+     * @return if there is a Bullet bill to the right of Mario
+     */
     public boolean getBulletBillRight() {
         byte[][] levelScene = env.getEnemiesObservation();
         for(int x = 12; x < 15; x++){
@@ -255,6 +265,9 @@ public class Helper {
         return false;
     }
 
+    /**
+     * @return if there is a Bullet bill above Mario
+     */
     public boolean getBulletBillAbove() {
         byte[][] levelScene = env.getEnemiesObservation();
         for(int y = 0; y < 22; y++){
@@ -266,6 +279,10 @@ public class Helper {
         return false;
     }
 
+    /**
+     * @return if there is an enemy, a pipe, a gap, or raised ground in
+     *  front of Mario and he should jump
+     */
     public boolean getShouldJump() {
         byte[][] levelScene = env.getLevelSceneObservation();
         int top = 0;
@@ -308,6 +325,9 @@ public class Helper {
         return !getGapDanger() || getOnTower();
     }
 
+    /**
+     * @return if Mario is right in front of a ledge or pipe
+     */
     public boolean getIsMarioStuck(){
         if(!env.isMarioOnGround()) {
             return false;
@@ -327,10 +347,6 @@ public class Helper {
                 y = 22;
             }
         }
-        //check if mario is small
-//        if(env.getMarioMode() == 0) {
-//            top++;
-//        }
         for(int y = 8; y < 22; y++) {
             if(levelScene[y][11] == -10) {
                 return y > top;
@@ -339,6 +355,9 @@ public class Helper {
         return false;
     }
 
+    /**
+     * @return if Mario has enough room to run and jump
+     */
     public boolean getIsMarioFarEnough() {
         byte[][] levelScene = env.getLevelSceneObservation();
         int top = 0;
@@ -348,14 +367,11 @@ public class Helper {
                 y = 22;
             }
         }
-
-//        System.out.println(top);
-
         if(top == 0) {
             return true;
         }
         //check 2 tiles ahead of him
-        if(levelScene[top-1][12] == 0 && levelScene[top-1][13] == 0) { // && levelScene[top-1][14] == 0) {
+        if(levelScene[top-1][12] == 0) { //&& levelScene[top-1][13] == 0) {
             return true;
         } else {
             return false;
@@ -363,6 +379,9 @@ public class Helper {
 
     }
 
+    /**
+     * @return if Mario is in between two pipes
+     */
     public boolean getIsMarioSandwich() {
         byte[][] levelScene = env.getCompleteObservation();
         for(int y = 0; y < 22; y++) {

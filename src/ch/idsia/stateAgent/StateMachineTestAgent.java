@@ -3,10 +3,8 @@ package ch.idsia.stateAgent;
 import ch.idsia.ai.agents.Agent;
 import ch.idsia.mario.engine.sprites.Mario;
 import ch.idsia.mario.environments.Environment;
-import ch.idsia.stateAgent.helpers.Helper;
 import ch.idsia.stateAgent.statemachine.TopLevelFSM;
 
-import java.util.concurrent.TimeUnit;
 
 public class StateMachineTestAgent implements Agent {
 
@@ -35,18 +33,7 @@ public class StateMachineTestAgent implements Agent {
 
     public boolean[] getAction(Environment observation)
     {
-        Helper helper = new Helper(observation);
-//        System.out.println("above: " + helper.getQuestionMarkAbove() + " below: " + helper.getQuestionMarkBelow());
-
-//        byte[][] enemies1 = observation.getLevelSceneObservation();
-//
-//        for (byte[] aLevelScene : enemies1) {
-//            for (byte anALevelScene : aLevelScene) {
-//                System.out.print(anALevelScene + "\t");
-//            }
-//            System.out.println("");
-//        }
-
+        //pause mario to make him look like he is thinking (for 30 calls to getAction)
         if(count < 30) {
             action[Mario.KEY_SPEED] = false;
             action[Mario.KEY_LEFT] = false;
@@ -57,6 +44,7 @@ public class StateMachineTestAgent implements Agent {
         } else {
             count++;
         }
+        //randomly choose when mario pauses again (every 500-700 calls to getAction)
         double rand = Math.floor(Math.random() * 500) + 200;
         if(count > rand) {
             count = 0;
