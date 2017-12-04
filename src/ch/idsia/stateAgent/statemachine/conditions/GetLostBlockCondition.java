@@ -8,7 +8,7 @@ public class GetLostBlockCondition implements ICondition {
 
     public boolean test(Environment observation) {
         Helper helper = new Helper(observation);
-        System.out.println("GetLostBlockCondition");
+//        System.out.println("GetLostBlockCondition");
         return helper.getQuestionMarkBehind();
     }
 }

@@ -1,12 +1,7 @@
 package ch.idsia.stateAgent.helpers;
 
 import ch.idsia.mario.environments.Environment;
-import ch.idsia.stateAgent.astar.AStarSimulator;
-
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Helper {
@@ -338,7 +333,6 @@ public class Helper {
 //        }
         for(int y = 8; y < 22; y++) {
             if(levelScene[y][11] == -10) {
-                System.out.println("top: " + top + " y: " + y);
                 return y > top;
             }
         }
