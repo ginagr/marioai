@@ -9,7 +9,7 @@ public class JumpAction implements IAction {
     public JumpAction(){};
 
     public boolean[] getAction(Environment observation){
-//        System.out.println("in jump action");
+        System.out.println("in jump action");
         boolean[] action = new boolean[Environment.numberOfButtons];
 
         action[Mario.KEY_JUMP] = true;

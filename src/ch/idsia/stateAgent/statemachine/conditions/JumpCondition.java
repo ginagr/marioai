@@ -10,6 +10,6 @@ public class JumpCondition implements ICondition {
         Helper helper = new Helper(observation);
         //System.out.println("in jump condition: " + (helper.getShouldJump() || helper.getRoadBlock() ||
         //        helper.getQuestionMarkAbove() || helper.getEnemyAheadOnLevel()));
-        return helper.getShouldJump() || helper.getRoadBlock() || helper.getQuestionMarkAbove() || helper.getEnemyAheadOnLevel();
+        return helper.getShouldJump() || /*helper.getRoadBlock()*/  helper.getQuestionMarkAbove() || helper.getEnemyAheadOnLevel();
     }
 }
