@@ -6,6 +6,9 @@ import ch.idsia.mario.environments.Environment;
 import ch.idsia.stateAgent.statemachine.TopLevelFSM;
 
 
+/**
+ * Agent file for our AI
+ */
 public class StateMachineTestAgent implements Agent {
 
     private String name;
@@ -17,12 +20,16 @@ public class StateMachineTestAgent implements Agent {
     {
         setName("StateMachineTestAgent");
         reset();
+        //creates new TSM
         this.TSM = new TopLevelFSM();
+        //reset count
         count = 0;
     }
 
-    public void reset()
-    {
+    /**
+     * For every new level/game, reset all variables
+     */
+    public void reset() {
         action = new boolean[Environment.numberOfButtons];
         action[Mario.KEY_RIGHT] = true;
         action[Mario.KEY_SPEED] = true;
@@ -31,6 +38,11 @@ public class StateMachineTestAgent implements Agent {
         System.out.println("RESETTING");
     }
 
+    /**
+     *
+     * @param observation
+     * @return the actions of Mario
+     */
     public boolean[] getAction(Environment observation)
     {
         //pause mario to make him look like he is thinking (for 30 calls to getAction)
@@ -50,6 +62,7 @@ public class StateMachineTestAgent implements Agent {
             count = 0;
         }
 
+        //get Mario actions from TSM
         action = TSM.getAction(observation);
         TSM.update(observation);
 
@@ -62,7 +75,11 @@ public class StateMachineTestAgent implements Agent {
         return Agent.AGENT_TYPE.AI;
     }
 
-    public String getName() {        return name;    }
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String Name) { this.name = Name;    }
+    public void setName(String Name) {
+        this.name = Name;
+    }
 }
