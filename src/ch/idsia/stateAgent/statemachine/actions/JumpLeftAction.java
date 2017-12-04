@@ -9,11 +9,11 @@ public class JumpLeftAction implements IAction {
     public JumpLeftAction(){};
 
     public boolean[] getAction(Environment observation){
-//        System.out.println("in jump action");
+        System.out.println("in jump left action");
         boolean[] action = new boolean[Environment.numberOfButtons];
 
         action[Mario.KEY_JUMP] = true;
-        action[Mario.KEY_LEFT] = false;
+        //action[Mario.KEY_LEFT] = true;
         action[Mario.KEY_RIGHT] = false;
         return action;
     }
