@@ -172,11 +172,11 @@ public class Helper {
     }
 
     public boolean getCannonAhead() {
-        byte[][] levelScene = env.getEnemiesObservation();
+        byte[][] levelScene = env.getCompleteObservation();
         for(int x = 12; x < 14; x++) {
             for(int y = 0; y < 22; y++){
                 if(levelScene[y][x] == 12) {
-                    return true;
+                    return levelScene[y - 1][x] != 20;
                 }
             }
         }
