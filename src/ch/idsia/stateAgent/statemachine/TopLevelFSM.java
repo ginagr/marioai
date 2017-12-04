@@ -18,6 +18,7 @@ public class TopLevelFSM {
         IAction moveBack = new MoveBackAction();
         IAction runLeft = new RunLeftAction();
         IAction jumpLeft = new JumpLeftAction();
+        IAction wait = new WaitAction();
         //IAction adjustForJump = new AdjustForJumpAction();
 
         ICondition jumpCond = new JumpCondition();
@@ -26,6 +27,8 @@ public class TopLevelFSM {
         ICondition jumpAgainCond = new FreedFromBoundaryCondition();
         ICondition lostBlockCond = new GetLostBlockCondition();
         ICondition noLostBlockCond = new NoLostBlockCondition();
+        ICondition pirhannaCond = new PirhannaInPipeCondition();
+        ICondition noPirhannaCond = new NoPirhannaInPipeCondition();
         //ICondition adjustForJumpCond = new TryJumpAgainCondition();
 
         State runState = new State(run, new ArrayList<Transition>() );
@@ -33,6 +36,7 @@ public class TopLevelFSM {
         State moveBackState = new State(moveBack, new ArrayList<Transition>());
         State runLeftState = new State(runLeft, new ArrayList<Transition>());
         State jumpLeftState = new State(jumpLeft, new ArrayList<Transition>());
+        State waitState = new State(wait, new ArrayList<Transition>());
         //State adjustForJumpState = new State(adjustForJump, new ArrayList<Transition>());
 
         Transition RunToJump = new Transition(jumpState, jumpCond);
@@ -40,13 +44,16 @@ public class TopLevelFSM {
         Transition JumpToMoveBack = new Transition(moveBackState, reverseCond);
         Transition MoveBackToJump = new Transition(jumpState, jumpAgainCond);
         Transition RunLeftToJumpLeft = new Transition(jumpLeftState, jumpCond);
-        Transition JumpLeftToRunLeft = new Transition(runLeftState, runCond);
+        Transition JumpLeftToRun = new Transition(runState, noLostBlockCond);
         Transition RunToRunLeft = new Transition(runLeftState, lostBlockCond);
-        Transition RunLeftToRun = new Transition(runState, noLostBlockCond);
+        //Transition RunLeftToRun = new Transition(runState, noLostBlockCond);
+        Transition RunToWait = new Transition(waitState, pirhannaCond);
+        Transition WaitToRun = new Transition(runState, noPirhannaCond);
 
         //Transition AdjustForJumpToJump = new Transition(jumpState, adjustForJumpCond);
 
         runState.addTransition(RunToRunLeft);
+        runState.addTransition(RunToWait);
         runState.addTransition(RunToJump);
 
         jumpState.addTransition(JumpToMoveBack);
@@ -54,10 +61,12 @@ public class TopLevelFSM {
 
         moveBackState.addTransition(MoveBackToJump);
 
-        runLeftState.addTransition(RunLeftToRun);
+        //runLeftState.addTransition(RunLeftToRun);
         runLeftState.addTransition(RunLeftToJumpLeft);
 
-        jumpLeftState.addTransition(JumpLeftToRunLeft);
+        jumpLeftState.addTransition(JumpLeftToRun);
+
+        waitState.addTransition(WaitToRun);
 
 
         //adjustForJumpState.addTransition(AdjustForJumpToJump);
