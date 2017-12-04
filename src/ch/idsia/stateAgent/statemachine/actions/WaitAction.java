@@ -12,6 +12,7 @@ public class WaitAction implements IAction {
         //System.out.println("in run action");
         boolean[] action = new boolean[Environment.numberOfButtons];
         action[Mario.KEY_RIGHT] = false;
+        action[Mario.KEY_SPEED] = false;
         return action;
     }
 }

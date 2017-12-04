@@ -101,7 +101,7 @@ public class Helper {
     public boolean getQuestionMarkAbove() {
         byte[][] levelScene = env.getLevelSceneObservation();
         for(int y = 0; y < 11; y++){
-            if((levelScene[y][11] == 21)){
+            if((levelScene[y][12] == 21)){
                 return true;
             }
         }
@@ -163,7 +163,7 @@ public class Helper {
 
     public boolean getCannonAhead() {
         byte[][] levelScene = env.getCompleteObservation();
-        for(int x = 12; x < 14; x++) {
+        for(int x = 12; x < 13; x++) {
             for(int y = 0; y < 22; y++){
                 if(levelScene[y][x] == 12) {
                     return levelScene[y - 1][x] != 20;
@@ -187,7 +187,7 @@ public class Helper {
         byte[][] levelScene = env.getLevelSceneObservation();
         int mario = 0;
 
-        for(int y = 0; y < 22; y++) {
+        for(int y = 8; y < 22; y++) {
             if(levelScene[y][11] == -10) {
                 mario = y-1;
                 y = 22;
@@ -209,7 +209,7 @@ public class Helper {
     public boolean getEnemyBehindOnLevel() {
         byte[][] levelScene = env.getLevelSceneObservation();
         int mario = 0;
-        for(int y = 0; y < 22; y++) {
+        for(int y = 8; y < 22; y++) {
             if(levelScene[y][11] == -10) {
                 mario = y-1;
                 y = 22;
@@ -275,16 +275,16 @@ public class Helper {
         byte[][] levelScene = env.getLevelSceneObservation();
         int top = 0;
         //get mario position
-        for(int y = 0; y < 22; y++) {
+        for(int y = 8; y < 22; y++) {
             if(levelScene[y][11] == -10) {
                 top = y;
                 y = 22;
             }
         }
 
-        //check 2 tiles ahead if he should jump
-        for(int x = 13; x < 14; x++) {
-            for(int y = 0; y < 22; y++){
+        //check 1-2 tiles ahead if he should jump
+        for(int x = 12; x < 14; x++) {
+            for(int y = 8; y < 22; y++){
                 if(levelScene[y][x] == -10) {
                     if(top > y) {
                         return true;
@@ -293,7 +293,7 @@ public class Helper {
             }
         }
 
-        //check if there is a tower
+        //check if there is a pipe 1-2 tiles ahead
         for(int y = 0; y < 22; y++){
             if(levelScene[y][12] == 20 || levelScene[y][13] == 20) {
                 return true;
@@ -301,7 +301,7 @@ public class Helper {
         }
 
         //check if small dip in ground
-        for(int y = 0; y < 22; y++){
+        for(int y = 8; y < 22; y++){
             if(levelScene[y][12] == -10) {
                 if(top < y) {
                     if(levelScene[y][14] == -10 && levelScene[y-1][14] == 0) {
@@ -317,23 +317,28 @@ public class Helper {
         if(!env.isMarioOnGround()) {
             return false;
         }
-        //check if there is a cannon
+        //check if there is a pipe 1 tile away
         byte[][] levelScene = env.getLevelSceneObservation();
-        for(int y = 9; y < 14; y++){
-            if(levelScene[y][12] == 20 || levelScene[y][13] == 20) {
+        for(int y = 8; y < 22; y++){
+            if(levelScene[y][12] == 20) { //|| levelScene[y][13] == 20) {
                 return true;
             }
         }
         //check if there is a ledge 1 tile away
         int top = 0;
-        for(int y = 0; y < 22; y++) {
+        for(int y = 8; y < 22; y++) {
             if(levelScene[y][12] == -10) {
                 top = y;
                 y = 22;
             }
         }
-        for(int y = 0; y < 22; y++) {
+        //check if mario is small
+//        if(env.getMarioMode() == 0) {
+//            top++;
+//        }
+        for(int y = 8; y < 22; y++) {
             if(levelScene[y][11] == -10) {
+                System.out.println("top: " + top + " y: " + y);
                 return y > top;
             }
         }
@@ -343,7 +348,7 @@ public class Helper {
     public boolean getIsMarioFarEnough() {
         byte[][] levelScene = env.getLevelSceneObservation();
         int top = 0;
-        for(int y = 0; y < 22; y++) {
+        for(int y = 8; y < 22; y++) {
             if(levelScene[y][11] == -10) {
                 top = y;
                 y = 22;
@@ -355,8 +360,8 @@ public class Helper {
         if(top == 0) {
             return true;
         }
-        //check 3 tiles ahead of him
-        if(levelScene[top-1][12] == 0 && levelScene[top-1][13] == 0 && levelScene[top-1][14] == 0) {
+        //check 2 tiles ahead of him
+        if(levelScene[top-1][12] == 0 && levelScene[top-1][13] == 0) { // && levelScene[top-1][14] == 0) {
             return true;
         } else {
             return false;

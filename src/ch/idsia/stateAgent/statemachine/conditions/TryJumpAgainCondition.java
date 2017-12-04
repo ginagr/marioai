@@ -9,7 +9,7 @@ public class TryJumpAgainCondition implements ICondition {
     public boolean test(Environment observation){
 
         Helper helper = new Helper(observation);
-
+        System.out.println("in try jump again cond");
         return helper.getIsMarioFarEnough();
     }
 }
